@@ -1,4 +1,4 @@
-package br.edu.ifspcjo.ads.web3.ifitness.resource;
+package br.edu.ifspcjo.ads.web3.afp.resource;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,55 +16,54 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.ifspcjo.ads.web3.ifitness.domain.model.User;
-import br.edu.ifspcjo.ads.web3.ifitness.repository.UserRepository;
-import br.edu.ifspcjo.ads.web3.ifitness.service.UserService;
+import br.edu.ifspcjo.ads.web3.afp.domain.model.User;
+import br.edu.ifspcjo.ads.web3.afp.repository.UserRepository;
+import br.edu.ifspcjo.ads.web3.afp.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
-
 @RestController
 @RequestMapping("/users")
-public class UserResource{
-	
+public class UserResource {
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@GetMapping
-	public List<User> list(){
+	public List<User> list() {
 		return userRepository.findAll();
-		
+
 	}
-	
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public User create(@Valid @RequestBody User user, HttpServletResponse response) {
 		return userRepository.save(user);
 	}
 
-	
-
 	@GetMapping("/{id}")
-	public ResponseEntity<User> findById(@PathVariable Long id){
+	public ResponseEntity<User> findById(@PathVariable Long id) {
 		Optional<User> user = userRepository.findById(id);
-		if(user.isPresent()) {
+		if (user.isPresent()) {
 			return ResponseEntity.ok(user.get());
 		}
-		return ResponseEntity.notFound().build();	
+		return ResponseEntity.notFound().build();
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public void remove(@PathVariable long id) {
 		userRepository.deleteById(id);
 	}
-	
+
 	@Autowired
 	private UserService userService;
+
 	@PutMapping("/{id}")
 	public ResponseEntity<User> update(@PathVariable Long id, @Valid @RequestBody User user) {
 		User userSaved = userService.update(id, user);
 		return ResponseEntity.ok(userSaved);
 	}
+
 	@PutMapping("/{id}/active")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void atualizarPropriedadeAtivo(@PathVariable Long id, @RequestBody Boolean active) {

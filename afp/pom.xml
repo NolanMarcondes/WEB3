@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.edu.ifspcjo.ads.web3</groupId>
-	<artifactId>ifitness</artifactId>
+	<artifactId>afp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ifitness</name>
+	<name>afp</name>
 	<description>API de Controle de Atividades Fisicas</description>
 	<url/>
 	<licenses>
